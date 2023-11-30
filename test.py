@@ -40,14 +40,6 @@ for index, row in df.iterrows():
         print(f"错误：序号 {row['序号']} 的借阅人缺失。")
         df.at[index, '借阅人'] = '空缺'
 
-unique_november_borrow_dates_count = df[df['借书时间'].str.startswith('10.')].groupby('借阅人')['借书时间'].nunique().sum()
-unique_november_return_dates_count = df[(df['还书时间'].notna() & (df['还书时间'] != '13.32')) & df['还书时间'].str.startswith('10.')].groupby('借阅人')['还书时间'].nunique().sum()
-total_count = unique_november_borrow_dates_count + unique_november_return_dates_count
-print(f"total number is : {total_count}")
-# 输出统计信息
-print(f"11月份借阅人对应的借书时间的唯一个数：{unique_november_borrow_dates_count}")
-print(f"11月份借阅人对应的还书时间的唯一个数：{unique_november_return_dates_count}")
-
 # 给 '日期相等' 列的 NaN 值填充为 0
 df['日期相等'].fillna(0, inplace=True)
 
@@ -64,4 +56,4 @@ if equal_dates_count > total_count * 0.1:
 
 # 输出统计信息
 print(f"借书日期等于还书日期的总次数：{equal_dates_count}")
-# print(f"总次数：{total_count}")
+print(f"总次数：{total_count}")
